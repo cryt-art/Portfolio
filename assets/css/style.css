@@ -144,10 +144,14 @@ html, body {
 }
 
 .name h1 {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Didot", "Didot LT STD", "GFS Didot", "Bodoni MT", "Hoefler Text", serif;
   font-size: clamp(52px, 5vw, 80px);
   line-height: 0.92;
-  font-weight: 500;
+  font-weight: 700;
+}
+
+.name h1 span {
+  display: block;
 }
 
 /* LOGO */

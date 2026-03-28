@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   footerMount.innerHTML = `
     <footer class="site-footer">
       <div class="site-footer-inner">
-        <a class="footer-link" href="#" target="_blank" rel="noopener noreferrer">
+        <a class="footer-link" href="https://www.linkedin.com/in/roseline-cheng/" target="_blank" rel="noopener noreferrer">
           <img src="${assetPrefix}assets/img/logo-linkedin.png" alt="LinkedIn">
           <span>Linkedin : Roseline Cheng</span>
         </a>
 
-        <a class="footer-link" href="#" target="_blank" rel="noopener noreferrer">
+        <a class="footer-link" href="https://www.instagram.com/crytart" target="_blank" rel="noopener noreferrer">
           <img src="${assetPrefix}assets/img/logo-instagram.png" alt="Instagram">
           <span>Instagram : crytart</span>
         </a>

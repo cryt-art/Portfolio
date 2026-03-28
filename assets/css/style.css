@@ -81,6 +81,21 @@ html, body {
 
 /* NAV */
 
+.header--hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+}
+
+/* Header fixe sur les pages scrollables */
+.ric-page .header,
+.bai-page .header,
+.montre-page .header,
+.lum-page .header,
+.archive-page .header {
+  position: fixed;
+}
+
 .header {
   position: absolute;
   top: 34px;
@@ -88,6 +103,7 @@ html, body {
   right: 52px;
   display: flex;
   justify-content: space-between;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   align-items: center;
   z-index: 1000;
 }
@@ -224,14 +240,22 @@ html, body {
   position: absolute;
   left: 37%;
   top: 59%;
-  width: 270px;
-  height: 270px;
-  transform: translate(-50%, -50%);
+  width: 17vw;
+  height: 17vw;
+  transform: translate(-50%, -50%) translateZ(0);
   border-radius: 50%;
-  border: 8px solid #d9d9d9;
   background: #000;
-  box-shadow: 0 0 45px rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 0 8px #d9d9d9, 0 0 45px rgba(255, 255, 255, 0.03);
   z-index: 1;
+  overflow: hidden;
+  cursor: pointer;
+  transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              top 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.7s ease,
+              box-shadow 0.7s ease;
+  isolation: isolate;
 }
 
 /* grand cercle */
@@ -240,15 +264,21 @@ html, body {
   position: absolute;
   left: 56%;
   top: 51%;
-  width: 430px;
-  height: 430px;
-  transform: translate(-50%, -50%);
+  width: 27vw;
+  height: 27vw;
+  transform: translate(-50%, -50%) translateZ(0);
+  transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              top 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.7s ease,
+              box-shadow 0.7s ease;
   border-radius: 50%;
   background: #ececec;
-  border: 8px solid #d9d9d9;
-  box-shadow: inset 0 0 0 6px #0a0a0a;
+  box-shadow: 0 0 0 8px #d9d9d9, inset 0 0 0 6px #0a0a0a;
   overflow: hidden;
   z-index: 2;
+  isolation: isolate;
 }
 
 /* zones hover */
@@ -345,6 +375,36 @@ html, body {
 .projects-big-circle.show-ric .preview-ric,
 .projects-big-circle.show-montre .preview-montre {
   opacity: 1;
+}
+
+/* === SWAP : archive preview hover (état swappé géré via JS inline styles) === */
+
+/* Archive preview (remplit tout le cercle) */
+
+.archive-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 3;
+}
+
+.archive-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.projects-small-circle:hover .archive-preview {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 
@@ -643,6 +703,7 @@ html, body {
   margin: 0;
   background: #1a0a0c;
   font-family: 'Inter', sans-serif;
+  zoom: 0.8;
   overflow-y: auto;
   color: #f7f1eb;
 }
@@ -1820,6 +1881,7 @@ html, body {
   margin: 0;
   background: #1B151A;
   font-family: 'Inter', sans-serif;
+  zoom: 0.8;
   color: #f6f0eb;
   overflow-y: auto;
 }
@@ -2532,18 +2594,24 @@ html, body {
 
 /* footer commun */
 
-.site-footer {
+/* Footer fixe sur les pages sans scroll */
+.projects-page .site-footer,
+.profile-page .site-footer {
   position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  z-index: 1000;
+}
+
+.site-footer {
+  width: 100%;
   height: 40px;
   background: #2e2e2e;
   border-top: 1px solid rgba(255,255,255,0.65);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .site-footer-inner {
@@ -2705,6 +2773,7 @@ html, body {
   margin: 0;
   background: #1a090b;
   font-family: 'Inter', sans-serif;
+  zoom: 0.8;
   color: #f8f1ec;
   overflow-y: auto;
 }
@@ -3531,6 +3600,7 @@ html, body {
   margin: 0;
   background: #4b3f3e;
   font-family: 'Inter', sans-serif;
+  zoom: 0.8;
   color: #f7f1ec;
   overflow-y: auto  ;
 }
@@ -4323,9 +4393,10 @@ html, body {
 
 .archive-page {
   margin: 0;
-  background: #0b0b0b;
+  background: #0a0a0a;
   font-family: 'Inter', sans-serif;
   color: #f7f1ec;
+  zoom: 0.9;
   overflow-y: auto;
 }
 
@@ -4354,6 +4425,14 @@ html, body {
   display: block;
   width: 100%;
   height: auto;
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%, black 6%, black 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 5%, black 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right,  transparent 0%, black 6%, black 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 5%, black 90%, transparent 100%);
+  mask-composite: intersect;
 }
 
 /* bandes pour cacher le faux header/footer de l'image */
@@ -4410,6 +4489,7 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .contact-page-main {
@@ -4695,20 +4775,120 @@ html, body {
 
 
 
+/* ===== FONDU BORDS IMAGES HERO ===== */
+
+.ric-hero-image,
+.bai-hero-image,
+.montre-hero-image,
+.lum-hero-image {
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 4%, black 92%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 4%, black 92%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* ===== NAVIGATION BORDS (accueil / profil) ===== */
+
+.nav-edge {
+  position: fixed;
+  top: 0;
+  width: 180px;
+  height: 100%;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-edge-right { right: 0; }
+.nav-edge-left  { left: 0; }
+
+/* Lumière qui émane du bord */
+.nav-edge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.nav-edge-right::before {
+  background: radial-gradient(ellipse 80px 300px at right center,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    transparent 100%);
+}
+
+.nav-edge-left::before {
+  background: radial-gradient(ellipse 80px 300px at left center,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    transparent 100%);
+}
+
+.nav-edge:hover::before {
+  opacity: 1;
+}
+
+/* Flèche chevron */
+.nav-edge-arrow {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top:    1.5px solid rgba(255, 255, 255, 0.75);
+  border-right:  1.5px solid rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+}
+
+.nav-edge-right .nav-edge-arrow {
+  transform: rotate(45deg) translateX(-3px);
+}
+
+.nav-edge-left .nav-edge-arrow {
+  transform: rotate(-135deg) translateX(-3px);
+}
+
+.nav-edge:hover .nav-edge-arrow {
+  opacity: 1;
+}
+
+.nav-edge-right:hover .nav-edge-arrow {
+  transform: rotate(45deg) translateX(2px);
+}
+
+.nav-edge-left:hover .nav-edge-arrow {
+  transform: rotate(-135deg) translateX(2px);
+}
+
 /* FOOTER COMMUN */
 
-.site-footer {
+/* Footer fixe sur les pages sans scroll */
+.projects-page .site-footer,
+.profile-page .site-footer {
   position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  z-index: 1000;
+}
+
+.site-footer {
+  width: 100%;
   height: 60px;
   background: #2e2e2e;
   border-top: 1px solid rgba(255,255,255,0.65);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .site-footer-inner {

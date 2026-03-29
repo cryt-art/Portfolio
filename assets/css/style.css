@@ -407,6 +407,58 @@ html, body {
   pointer-events: auto;
 }
 
+/* Hint archive */
+
+.archive-hint,
+.projects-hint {
+  position: absolute;
+  transform: translateX(-50%);
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  animation: hint-pulse 2.4s ease-in-out infinite;
+  transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              top  0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.archive-hint {
+  left: 37%;
+  top: calc(59% + 9.5vw);
+}
+
+.projects-hint {
+  left: 56%;
+  top: calc(51% + 14.5vw);
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.75; }
+}
+
+/* Lien retour aux projets */
+
+.back-to-projects {
+  position: fixed;
+  bottom: 36px;
+  left: 52px;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  z-index: 999;
+}
+
+.back-to-projects:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
 
 
 
@@ -4486,16 +4538,17 @@ html, body {
   background: #050505;
   font-family: 'Inter', sans-serif;
   color: #f7f1ec;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .contact-page-main {
   flex: 1;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .contact-section {
@@ -4503,7 +4556,7 @@ html, body {
   max-width: 1520px;
   margin: 0 auto;
   background: #050505;
-  min-height: calc(100vh - 160px);
+  height: 100%;
   display: flex;
   align-items: stretch;
 }
@@ -4513,7 +4566,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   gap: 80px;
-  padding: 120px 90px 70px;
+  padding: 90px 90px 40px;
   box-sizing: border-box;
 }
 
@@ -4844,9 +4897,9 @@ html, body {
   height: 10px;
   border-top:    1.5px solid rgba(255, 255, 255, 0.75);
   border-right:  1.5px solid rgba(255, 255, 255, 0.75);
-  opacity: 0;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+  opacity: 0.25;
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
 }
 
 .nav-edge-right .nav-edge-arrow {
@@ -4859,6 +4912,7 @@ html, body {
 
 .nav-edge:hover .nav-edge-arrow {
   opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95));
 }
 
 .nav-edge-right:hover .nav-edge-arrow {
@@ -4990,4 +5044,83 @@ html, body {
     font-size: 11px;
     letter-spacing: 0.05em;
   }
+}
+
+/* ===== TRANSITION ENTRE PAGES ===== */
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.45s ease;
+}
+
+.page-transition.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== SCROLL TO TOP ===== */
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 36px;
+  right: 52px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, border-color 0.2s ease;
+  z-index: 999;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-top-btn:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== INDICATEUR DE PROJET ===== */
+
+.project-indicator {
+  position: fixed;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 999;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.project-indicator span {
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.2s ease;
+}
+
+.project-indicator span.active {
+  color: #ffffff;
+}
+
+.project-indicator .dot {
+  color: rgba(255, 255, 255, 0.2);
 }

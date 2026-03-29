@@ -1,4 +1,43 @@
+// ===== TRANSITION ENTRE PAGES =====
+(function () {
+  const overlay = document.createElement("div");
+  overlay.className = "page-transition active";
+  document.body.appendChild(overlay);
+
+  // Fade-in à l'entrée
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    overlay.classList.remove("active");
+  }));
+
+  // Fonction globale réutilisable (ex: projects.js)
+  window.navigateTo = function (href) {
+    overlay.classList.add("active");
+    setTimeout(() => { window.location.href = href; }, 450);
+  };
+
+  // Intercepte tous les clics sur liens internes
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href || link.target === "_blank" || /^(https?:|mailto:|#)/.test(href)) return;
+    e.preventDefault();
+    window.navigateTo(link.href);
+  });
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
+  // ===== NAVIGATION CLAVIER ←→ =====
+  const leftLink  = document.querySelector(".nav-edge-left");
+  const rightLink = document.querySelector(".nav-edge-right");
+
+  if (leftLink || rightLink) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft"  && leftLink)  window.navigateTo(leftLink.href);
+      if (e.key === "ArrowRight" && rightLink) window.navigateTo(rightLink.href);
+    });
+  }
+
   const footerMount = document.getElementById("site-footer");
   if (!footerMount) return;
 

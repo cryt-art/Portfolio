@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     quarter.addEventListener("click", () => {
       if (!swapped && quarter.dataset.link)
-        window.location.href = quarter.dataset.link;
+        window.navigateTo(quarter.dataset.link);
     });
   });
   circle.addEventListener("mouseleave", clearPreviews);
@@ -41,6 +41,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const archiveNavLink = document.querySelector('a[href="archive.html"]');
   const projetsNavLink = document.querySelector('a[href="projets.html"]');
 
+  const archiveHint  = document.getElementById("archiveHint");
+  const projectsHint = document.getElementById("projectsHint");
+
+  function updateHints(swappedState) {
+    if (!archiveHint || !projectsHint) return;
+    if (swappedState) {
+      // archive → BIG, projets → SMALL
+      archiveHint.style.left  = BIG.left;
+      archiveHint.style.top   = `calc(${BIG.top} + 14.5vw)`;
+      projectsHint.style.left = SMALL.left;
+      projectsHint.style.top  = `calc(${SMALL.top} + 9.5vw)`;
+    } else {
+      // archive → SMALL, projets → BIG
+      archiveHint.style.left  = SMALL.left;
+      archiveHint.style.top   = `calc(${SMALL.top} + 9.5vw)`;
+      projectsHint.style.left = BIG.left;
+      projectsHint.style.top  = `calc(${BIG.top} + 14.5vw)`;
+    }
+  }
+
   function doSwap() {
     swapped = !swapped;
     if (swapped) {
@@ -56,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (archiveNavLink) archiveNavLink.classList.remove("active");
       if (projetsNavLink) projetsNavLink.classList.add("active");
     }
+    updateHints(swapped);
   }
 
   // Détecte si un point est dans un cercle
@@ -79,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (swapped) {
       if (isInCircle(archiveCircle, x, y)) {
         // Si l'archive preview est visible → naviguer
-        window.location.href = "archive.html";
+        window.navigateTo("archive.html");
       } else if (isInCircle(circle, x, y)) {
         // Clic sur le petit cercle projet → swap retour
         doSwap();

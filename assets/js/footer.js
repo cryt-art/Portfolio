@@ -12,7 +12,7 @@
   // Fonction globale réutilisable (ex: projects.js)
   window.navigateTo = function (href) {
     overlay.classList.add("active");
-    setTimeout(() => { window.location.href = href; }, 450);
+    setTimeout(() => { window.location.href = href; }, 250);
   };
 
   // Intercepte tous les clics sur liens internes
@@ -23,6 +23,25 @@
     if (!href || link.target === "_blank" || /^(https?:|mailto:|#)/.test(href)) return;
     e.preventDefault();
     window.navigateTo(link.href);
+  });
+})();
+
+// ===== LABELS NAV-EDGE =====
+(function () {
+  const pageNames = {
+    'index.html':   'ACCUEIL',
+    'profil.html':  'PROFIL',
+    'projets.html': 'PROJETS',
+    'archive.html': 'ARCHIVE',
+    'lum.html':     'LUM',
+    'bai.html':     'BAI',
+    'montre.html':  'MONTRE',
+    'ric.html':     'RIC',
+  };
+  document.querySelectorAll('.nav-edge').forEach(link => {
+    const filename = link.getAttribute('href').split('/').pop();
+    const name = pageNames[filename];
+    if (name) link.setAttribute('data-label', name);
   });
 })();
 

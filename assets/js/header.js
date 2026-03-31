@@ -85,7 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
     indicator.innerHTML = projectOrder
       .map((p, i) => {
         const dot = i < projectOrder.length - 1 ? '<span class="dot">·</span>' : "";
-        return `<span class="${p === current ? "active" : ""}">${projectNames[p]}</span>${dot}`;
+        if (p === current) {
+          return `<span class="active">${projectNames[p]}</span>${dot}`;
+        }
+        return `<a href="${p}.html">${projectNames[p]}</a>${dot}`;
       })
       .join("");
     document.body.appendChild(indicator);
